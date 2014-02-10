@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: main.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: main.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/*******************************************************************/
+// main.js - logic and handlers - Holy Cross Urgentcare App
+// Gary Peach at BPD Advertising
+// http://www.bpdadvertising.com
+/*******************************************************************/
+
+// declare vars 
+var device, lat, lon, networkstate, locationId, feedData, fullData, selectedPage = null, param;
+var debug = 1, activated = 0, onlineState = null, message = null;
+
+/**
+ * hospital location feed data storage
+ * @type {object|feed}
+ */
+var hospitals = {};
+var geodata = {};
+var listPageHTML = '';
+var listLoop = null;
+var googleAddress = null;
+
+var imageWebsiteUrl = 'http://www.holycrosserapp.com/images/';
+// google maps global vars 
+var google;
+var map;
+var destination;
+
+// call directions service constructor
+/*******************************************************************/
+
+/**
+ * function onDeviceReady()
+ * on document load, set event listener for deviceready
+ * Cordova is loaded and it is now safe to make calls Cordova methods
+ */
+function onDeviceReady() {
+    qM('onDeviceReady()');
+    qM('uuid ' + device.uuid);
+    setEventHandlers();
+    googleAnalytics();
+    fetchFeedAndPosition();
+}//end onDeviceReady
+
+/**
+ * function onload()
+ * on document load, set event listener for deviceready event 
+ * (means cordova is done initializing) and call onDeviceReady()
+ */
+function onLoad() {
+    qM('onload()');
+    if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+        qM('Device provides ready');
+        document.addEventListener("deviceready", onDeviceReady, false);
+    } else {
+        qM('Sim provides ready');
+        onDeviceReady();
+    }
+}//end onLoad()
+
+/**
+ * function setEventHandlers()
+ * sets up event and click handlers
+ */
+function setEventHandlers() {
+    qM('setEventHandlers()');
+
+    ///////////////////////////////////////////////////////////////
+    /////////////// Pageshow Handlers ////////////////////////
+    ///////////////////////////////////////////////////////////////
+
+    // pageshow handler
+    $(document).on("pageshow", '[data-role=page]', function(event, data) {
+
+        qM("param = " + param);
+        selectedPage = null;
+        selectedPage = parseInt(param);
+        param = null;
+        qM("selectedPage = " + selectedPage);
+        fetchFeedAndPosition();
+    });
+
+    // pageshow handler for google analytics
+    $(document).on('pageshow', '[data-role=page]', function() {
+        hash = location.hash;
+        if (hash) {
+            ga('send', 'pageview', {'page': hash.substr(1)});
+            qM("Google Analytics pageview triggered " + location.hash);
+        } else {
+            ga('send', 'pageview', {'page': 'index.html'});
+            qM("Google Analytics pageview triggered " + 'index.html');
+        }
+    });
+
+    ///////////////////////////////////////////////////////////////
+    //////////////////////// Click Handlers /////////////////////
+    ///////////////////////////////////////////////////////////////
+
+
+
+    // click handler
+    $('[data-role="page"]#home .detail-button a').on('click', function() {
+        param = locationId;
+        $.mobile.changePage('#detail', {
+            changeHash: true,
+            dataUrl: "detail", //the url fragment that will be displayed for the destination page
+            transition: "fade"  //if not specified, uses the default one or the one defined in the default settings
+        });//end mobile.changepage
+        qM('[data-role="page"]#home .detail-button a');
+        return false;
+    });//end link handler
+    //
+    // holy cross website link handler
+    $('.hchLink').on('click', function() {
+        ga('send', 'event', 'button', 'click', 'website');
+        var ref = window.open('http://m.holy-cross.com', '_blank', 'location=yes');
+        qM('.hchlink clicked');
+    });	//end link handler
+
+    // holy cross tel link handler 
+    $('.tel.holycross').on('click', function() {
+        ga('send', 'event', 'link', 'click', 'holycrosstel');
+        qM('holy cross tel clicked');
+    });	//end tel click link handler
+
+    // urgentcare tel link handler 
+    $('.tel.urgentcare').on('click', function() {
+        ga('send', 'event', 'link', 'click', 'urgentcaretel');
+        qM('urgentcare tel clicked');
+    });	//end urgentcare tel click link handler
+
+    // set google directions click handler
+    $('.googleDir').on('click', function() {
+        qM('.googleDir clicked');
+        var ref = window.open(googleAddress, '_blank', 'location=yes');
+        return false;
+    });//end google directions click handler
+}
+;//end setEventHandlers()
+
+// promise objects info came from the url below
+// http://odetocode.com/blogs/scott/archive/2012/06/18/geolocation-geocoding-and-jquery-promises.aspx
+
+/**
+ * function getFeed()
+ * get feed form internet
+ * @return {object} deferred - feed object
+ */
+var getFeed = function(feedURL) {
+    qM('getFeed Promise');
+    var deferred = jQuery.Deferred();
+    $.getJSON(feedURL).done(function(feed) {
+        qM('feed resolved');
+        deferred.resolve(feed);
+    });
+    return deferred.promise();
+}
+;//end getFeed()
+
+/**
+ * function getPosition()
+ * get position from phone
+ * {object} deferred - position object
+ */
+var getPosition = function(options) {
+    qM('getPosition Promise');
+    var deferred = jQuery.Deferred();
+    navigator.geolocation.getCurrentPosition(function(position) {
+        qM('position resolved');
+        deferred.resolve(position);
+    }, deferred.reject, options);
+    return deferred.promise();
+};//end getPosition()
+
+/**
+ * function fetchFeedAndPosition()
+ * 
+ * gets feed from holycrosserapp.com and position from phone
+ * @returns {void}
+ */
+function fetchFeedAndPosition() {
+    qM('fetchFeedAndPosition()');
+    $.when(getPosition(), getFeed('http://holycrosserapp.com/datafeed.php?action=wait_time'))
+            .then(function(position, feed) {
+                qM(position);
+                calculateAndDisplay(position, feed);
+            });
+}//end fetchFeedAndPosition()
+
+/**
+ * calculateAndDisplay(position, feed)
+ * monster method, for now, that waits for deferred objects to resolve, then calculates the closest location on every page change and updates all of the displays
+ * @param {object} position - deferred object
+ * @param {object } feed - deferred object
+ * @return void
+ */
+function calculateAndDisplay(position, feed) {
+    qM('calculateAndDisplay()');
+    hospitals = feed;
+    geodata = position;
+    qM(position);
+    var x, y, candidate, request;
+    lat = position.coords.latitude;
+    lon = position.coords.longitude;
+    qM(lat + ', ' + lon);
+    var minDistance = 1000000000;
+    var currentposition = null;
+    destination = null;
+    locationId = null;
+    currentposition = new google.maps.LatLng(lat, lon);
+
+    // location selection logic - find closest location from candidates
+    for (x = 0; x &lt; hospitals.locations.length; x++) {
+        candidate = new google.maps.LatLng(hospitals.locations[x].lat, hospitals.locations[x].lon);
+        distance = google.maps.geometry.spherical.computeDistanceBetween(currentposition, candidate);
+        qM(x + ', ' + distance);
+        hospitals.locations[x].distance = Math.round(distance * 0.00062137);
+        if (distance &lt; minDistance) {
+            minDistance = distance;
+            locationId = x;
+        }//end if     
+    }//end for
+
+//debugging
+    qM('loc=' + locationId + 'wait=' + hospitals.locations[locationId].wait);
+    qM('display wait ' + hospitals.locations[locationId].wait);
+    qM('closestlocationId=' + locationId);
+    qM('display distance ' + hospitals.locations[locationId].distance);
+
+//build list page array
+    listLoop = 0;
+    listPageHTML = '';
+    qM('# of facilities ' + hospitals.locations.length);
+    for (listLoop = 0; listLoop &lt; hospitals.locations.length; listLoop++) {
+        qM('listLoop ' + listLoop);
+
+        listPageHTML += [
+            '&lt;li>&lt;a onClick="param = ' + listLoop + ';" href="#detail" data-role="button" data-icon="arrow-r" data-iconpos="right"  data-transition="slide">&lt;span class="location-list-item-title name">' + hospitals.locations[listLoop].name,
+            '&lt;/span>&lt;br>&lt;span class="location-list-item-wait">Wait: &lt;span class="wait">' + hospitals.locations[listLoop].wait + '&lt;/span> minutes&lt;/span>',
+            '&lt;span class="location-list-item-distance">Miles: &lt;span class="distance">' + hospitals.locations[listLoop].distance + '&lt;/span>&lt;/span>&lt;/a>&lt;/li>'
+        ].join('');
+        //qM(listPageHTML);
+    }
+
+//google directions address
+    var index = null;
+    if ($.isNumeric(selectedPage)) {
+        index = selectedPage;
+    } else if ($.isNumeric(locationId)) {
+        index = locationId;
+    }
+    qM('index: ' + index);
+    if ($.isNumeric(index)) {
+        googleAddress = 'http://www.maps.google.com/?q=' + (
+                [
+                    hospitals.locations[index].address1,
+                    hospitals.locations[index].address2,
+                    hospitals.locations[index].city,
+                    hospitals.locations[index].state,
+                    hospitals.locations[index].zipcode
+                ].join(' ').split(' ').join('+'));
+    }
+
+//populate list page
+    qM(listPageHTML);
+    $("ul#locations-list").html(listPageHTML).css('display', 'none');
+    $("ul#locations-list").css('display', 'block').trigger('create');
+
+//populate home page
+    if ($.isNumeric(locationId)) {
+        $("div#wait span.wait").html(hospitals.locations[locationId].wait);
+        $(".nearest-location-text > span.name").html(hospitals.locations[locationId].name);
+//$("div.address span").html(hospitals.locations[locationId].address);
+        $("div#distance span.distance").html(hospitals.locations[locationId].distance);
+        $.ajax({
+            url: 'images/' + locationId + '.jpg',
+            type: 'HEAD',
+            error:
+                    function() {
+                        //do something depressing
+                    },
+            success:
+                    function() {
+                        $('[data-role=page]#home span.photo img').attr("src", 'images/' + locationId + '.jpg');
+                        qM('images/' + locationId + '.jpg');
+                    }
+        });
+    }
+
+//populate detail page
+    qM('populate detail photo selected: ' + selectedPage);
+    if ($.isNumeric(selectedPage)) {
+        qM('numeric');
+    }
+    if ($.isNumeric(selectedPage)) {
+        $("[data-role=page]#detail div.detail-location-text > span.name").html(hospitals.locations[selectedPage].name);
+        $("[data-role=page]#detail div.display-operating-hours div.hours").html(hospitals.locations[selectedPage].hours);
+        $("[data-role=page]#detail div.display-address span.address-1").html(hospitals.locations[selectedPage].address1);
+        $("[data-role=page]#detail div.display-address span.address-2").html(hospitals.locations[selectedPage].address2);
+        $("[data-role=page]#detail div.display-address span.city").html(hospitals.locations[selectedPage].city + ', ');
+        $("[data-role=page]#detail div.display-address span.state").html(hospitals.locations[selectedPage].state);
+        $("[data-role=page]#detail div.display-address span.zipcode").html(hospitals.locations[selectedPage].zipcode);
+        $("[data-role=page]#detail div.display-phone span.phone").html(hospitals.locations[selectedPage].phone);
+        $("[data-role=page]#detail div.display-phone span.phone").html(hospitals.locations[selectedPage].phone);
+        $.ajax({
+            url: 'images/' + selectedPage + '.jpg',
+            type: 'HEAD',
+            error:
+                    function() {
+                        //do something depressing
+                    },
+            success:
+                    function() {
+                        $('[data-role=page]#detail span.photo img').attr("src", 'images/' + selectedPage + '.jpg');
+                        qM('images/' + selectedPage + '.jpg');
+                    }
+        });
+
+    }
+}//end function calculateAndDisplay()
+
+/**
+ * function fetchFail()
+ * stub
+ */
+function fetchFail() {
+}
+
+
+/**
+ * function onGeoError(error)
+ * geolocation off or not working
+ * @param {object} error - the error object
+ */
+function onGeoError(error) {
+    qM('onGeoError()');
+    if (error === 1) {
+        qM('turn on geolocation');
+    }//end if
+    else {
+        qM('error code: ' + error.code);
+    }
+}
+//end onGeoError
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Global</h3><ul><li><a href="global.html#calculateAndDisplay">calculateAndDisplay</a></li><li><a href="global.html#fetchFail">fetchFail</a></li><li><a href="global.html#fetchFeedAndPosition">fetchFeedAndPosition</a></li><li><a href="global.html#getFeed">getFeed</a></li><li><a href="global.html#getPosition">getPosition</a></li><li><a href="global.html#googleAnalytics">googleAnalytics</a></li><li><a href="global.html#hospitals">hospitals</a></li><li><a href="global.html#onDeviceReady">onDeviceReady</a></li><li><a href="global.html#onGeoError">onGeoError</a></li><li><a href="global.html#onLoad">onLoad</a></li><li><a href="global.html#qM">qM</a></li><li><a href="global.html#setEventHandlers">setEventHandlers</a></li><li><a href="global.html#shouldRotateToOrientation">shouldRotateToOrientation</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a> on Fri Oct 04 2013 16:25:40 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

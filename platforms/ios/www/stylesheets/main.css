@@ -1,0 +1,956 @@
+/* button vars  */
+/**
+ * web fonts
+ */
+@font-face {
+  font-family: "Helvetica Neue Medium";
+  src: url('../fonts/helveticaneue_medium-webfont.eot');
+  src: url('../fonts/helveticaneue_medium-webfont.eot?#iefix') format('eot'), url('../fonts/helveticaneue_medium-webfont.woff') format('woff'), url('../fonts/helveticaneue_medium-webfont.ttf') format('truetype'), url('../fonts/helveticaneue_medium-webfont.svg') format('svg');
+}
+
+@font-face {
+  font-family: "Helvetica Neue Italic";
+  src: url('../fonts/helveticaneue_italic-webfont.eot');
+  src: url('../fonts/helveticaneue_italic-webfont.eot?#iefix') format('eot'), url('../fonts/helveticaneue_italic-webfont.woff') format('woff'), url('../fonts/helveticaneue_italic-webfont.ttf') format('truetype'), url('../fonts/helveticaneue_italic-webfont.svg') format('svg');
+}
+
+@font-face {
+  font-family: "Helvetica Neue Bold";
+  src: url('../fonts/helveticaneue_bold-webfont.eot');
+  src: url('../fonts/helveticaneue_bold-webfont.eot?#iefix') format('eot'), url('../fonts/helveticaneue_bold-webfont.woff') format('woff'), url('../fonts/helveticaneue_bold-webfont.ttf') format('truetype'), url('../fonts/helveticaneue_bold-webfont.svg') format('svg');
+}
+
+@font-face {
+  font-family: "Helvetica Neue Light";
+  src: url('../fonts/helvetica_neue_lt_std_55_roman-webfont.eot');
+  src: url('../fonts/helvetica_neue_lt_std_55_roman-webfont.eot?#iefix') format('eot'), url('../fonts/helvetica_neue_lt_std_55_roman-webfont.woff') format('woff'), url('../fonts/helvetica_neue_lt_std_55_roman-webfont.ttf') format('truetype'), url('../fonts/helvetica_neue_lt_std_55_roman-webfont.svg') format('svg');
+}
+
+@font-face {
+  font-family: "Proxima Nova Regular";
+  src: url('../fonts/proximanova-regular-webfont.eot');
+  src: url('../fonts/proximanova-regular-webfont.eot?#iefix') format('eot'), url('../fonts/proximanova-regular-webfont.woff') format('woff'), url('../fonts/proximanova-regular-webfont.ttf') format('truetype'), url('../fonts/proximanova-regular-webfont.svg') format('svg');
+}
+
+@font-face {
+  font-family: "Proxima Nova Regular Italic";
+  src: url('../fonts/proximanova-regularit-webfont.eot');
+  src: url('../fonts/proximanova-regularit-webfont.eot?#iefix') format('eot'), url('../fonts/proximanova-regularit-webfont.woff') format('woff'), url('../fonts/proximanova-regularit-webfont.ttf') format('truetype'), url('../fonts/proximanova-regularit-webfont.svg') format('svg');
+}
+
+@font-face {
+  font-family: "Proxima Nova Regular Bold";
+  src: url('../fonts/proximanova-bold-webfont.eot');
+  src: url('../fonts/proximanova-bold-webfont.eot?#iefix') format('eot'), url('../fonts/proximanova-bold-webfont.woff') format('woff'), url('../fonts/proximanova-bold-webfont.ttf') format('truetype'), url('../fonts/proximanova-bold-webfont.svg') format('svg');
+}
+
+@font-face {
+  font-family: "Proxima Nova Regular SemiBold";
+  src: url('../fonts/proximanova-semibold-webfont.eot');
+  src: url('../fonts/proximanova-semibold-webfont.eot?#iefix') format('eot'), url('../fonts/proximanova-semibold-webfont.woff') format('woff'), url('../fonts/proximanova-semibold-webfont.ttf') format('truetype'), url('../fonts/proximanova-semibold-webfont.svg') format('svg');
+}
+
+@font-face {
+  font-family: "League Gothic";
+  src: url('../fonts/league_gothic.eot');
+  src: url('../fonts/league_gothic.eot?#iefix') format('eot'), url('../fonts/league_gothic.woff') format('woff'), url('../fonts/league_gothic.ttf') format('truetype'), url('../fonts/league_gothic.svg') format('svg');
+}
+
+@font-face {
+  font-family: "Minion Pro";
+  src: url('../fonts/minionpro.eot');
+  src: url('../fonts/minionpro.eot?#iefix') format('eot'), url('../fonts/minionpro.woff') format('woff'), url('../fonts/minionpro.ttf') format('truetype'), url('../fonts/minionpro.svg') format('svg');
+}
+
+@font-face {
+  font-family: "Caecilia Bold";
+  src: url('../fonts/caecilia-bold.eot');
+  src: url('../fonts/caecilia-bold.eot?#iefix') format('eot'), url('../fonts/caecilia-bold.woff') format('woff'), url('../fonts/caecilia-bold.ttf') format('truetype'), url('../fonts/caecilia-bold.svg') format('svg');
+}
+
+@font-face {
+  font-family: "Caecilia Bold Italic";
+  src: url('../fonts/caecilia-bolditalic.eot');
+  src: url('../fonts/caecilia-bolditalic.eot?#iefix') format('eot'), url('../fonts/caecilia-bolditalic.woff') format('woff'), url('../fonts/caecilia-bolditalic.ttf') format('truetype'), url('../fonts/caecilia-bolditalic.svg') format('svg');
+}
+
+@font-face {
+  font-family: "Caecilia Heavy";
+  src: url('../fonts/caecilia-heavy.eot');
+  src: url('../fonts/caecilia-heavy.eot?#iefix') format('eot'), url('../fonts/caecilia-heavy.woff') format('woff'), url('../fonts/caecilia-heavy.ttf') format('truetype'), url('../fonts/caecilia-heavy.svg') format('svg');
+}
+
+@font-face {
+  font-family: "Caecilia Light";
+  src: url('../fonts/caecilia-light.eot');
+  src: url('../fonts/caecilia-light.eot?#iefix') format('eot'), url('../fonts/caecilia-light.woff') format('woff'), url('../fonts/caecilia-light.ttf') format('truetype'), url('../fonts/caecilia-light.svg') format('svg');
+}
+
+@font-face {
+  font-family: "Caecilia Italic";
+  src: url('../fonts/caecilia-italic.eot');
+  src: url('../fonts/caecilia-italic.eot?#iefix') format('eot'), url('../fonts/caecilia-italic.woff') format('woff'), url('../fonts/caecilia-italic.ttf') format('truetype'), url('../fonts/caecilia-italic.svg') format('svg');
+}
+
+@font-face {
+  font-family: "Caecilia Light Italic";
+  src: url('../fonts/caecilia-lightitalic.eot');
+  src: url('../fonts/caecilia-lightitalic.eot?#iefix') format('eot'), url('../fonts/caecilia-lightitalic.woff') format('woff'), url('../fonts/caecilia-lightitalic.ttf') format('truetype'), url('../fonts/caecilia-lightitalic.svg') format('svg');
+}
+
+@font-face {
+  font-family: "Caecilia Roman";
+  src: url('../fonts/caecilia-roman.eot');
+  src: url('../fonts/caecilia-roman.eot?#iefix') format('eot'), url('../fonts/caecilia-roman.woff') format('woff'), url('../fonts/caecilia-roman.ttf') format('truetype'), url('../fonts/caecilia-roman.svg') format('svg');
+}
+
+/**
+ * css
+ */
+/* line 49, ../sass/main.scss */
+body {
+  background: #0c3856 !important;
+  /* Old browsers */
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 57, ../sass/main.scss */
+.ui-page {
+  background: #0c3856;
+}
+
+/* line 62, ../sass/main.scss */
+.clearfloat {
+  clear: both;
+}
+
+/* line 66, ../sass/main.scss */
+.main-content {
+  margin: 10px;
+  margin-top: 0px;
+}
+
+/* line 72, ../sass/main.scss */
+.center {
+  text-align: center;
+}
+
+/* line 76, ../sass/main.scss */
+ul#when, ul#urgentlist {
+  margin: 10px;
+  border-radius: 10px;
+  font-size: .8em;
+  text-align: center;
+}
+
+/* line 83, ../sass/main.scss */
+#map {
+  margin: 0 auto;
+  width: 95%;
+  height: 200px;
+  border: 1px solid #aaa;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+/* line 92, ../sass/main.scss */
+#directionsList {
+  padding: 5px;
+  margin: 0 auto;
+  width: 95%;
+  /* height:175px; */
+  /* border: 1px solid #aaa; */
+}
+
+/* line 100, ../sass/main.scss */
+#directionsPanel {
+  margin: 5px;
+}
+
+/* line 103, ../sass/main.scss */
+#distancePanel {
+  text-align: center;
+}
+
+/* line 107, ../sass/main.scss */
+.offline {
+  visibility: hidden;
+}
+
+/* line 111, ../sass/main.scss */
+div.list {
+  position: relative;
+  /*    background-color:#072c41;*/
+  background: #072c41 url("../images/hrule.png") 0px 50% repeat-x;
+  margin: 10px 0 10px 0;
+  border-radius: 10px;
+  font-size: .85em;
+  text-align: center;
+  padding: 0px;
+}
+/* line 122, ../sass/main.scss */
+div.list p {
+  text-align: left;
+}
+/* line 126, ../sass/main.scss */
+div.list img {
+  margin: 5px;
+  margin: 0 auto;
+}
+/* line 130, ../sass/main.scss */
+div.list a {
+  margin-right: 1.5em;
+}
+
+/* BEGIN HOME PAGE STYLING */
+/* line 136, ../sass/main.scss */
+.header {
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  height: 85px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 100;
+}
+/* line 146, ../sass/main.scss */
+.header .app-header {
+  width: 320px;
+  height: 85px;
+  margin-top: 0;
+  padding-top: 0;
+}
+/* line 152, ../sass/main.scss */
+.header .app-header .app-logo {
+  margin-top: 0;
+  padding: 0;
+  background: url("../images/header-logo-sm.jpg") no-repeat left top;
+  width: 100%;
+  height: 100%;
+}
+/* line 159, ../sass/main.scss */
+.header .app-header .app-logo p {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  left: -9999px;
+}
+
+/* line 169, ../sass/main.scss */
+.content {
+  font-family: Helvetica, Arial, 'sans-serif';
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  position: fixed;
+  top: 85px;
+  right: 0px;
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+  left: 0px;
+  z-index: 0;
+  padding-left: 0px;
+  padding-right: 0;
+  background-color: #044872;
+  background: #044872;
+  /* Old browsers */
+}
+/* line 187, ../sass/main.scss */
+.content .ui-content {
+  padding-top: 0;
+}
+/* line 194, ../sass/main.scss */
+.content h1 {
+  text-align: left;
+  font-size: 1.15em;
+  margin-top: 0px;
+}
+/* line 199, ../sass/main.scss */
+.content .nearest-location-box {
+  width: 100%;
+  color: #fff;
+  text-shadow: 0 0;
+  background: #006a9d;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #006a9d 0%, #033b67 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #006a9d), color-stop(100%, #033b67));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #006a9d 0%, #033b67 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #006a9d 0%, #033b67 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #006a9d 0%, #033b67 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #006a9d 0%, #033b67 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#006a9d', endColorstr='#033b67',GradientType=0 );
+  /* IE6-9 */
+  background: url("../images/triangle1.png") repeat-x;
+  background-size: 100% 75px;
+  height: 71px;
+}
+/* line 215, ../sass/main.scss */
+.content .nearest-location-box .nearest-location-text {
+  padding: 10px;
+  font-size: 1em;
+}
+/* line 219, ../sass/main.scss */
+.content .nearest-location-box .nearest-location-text .name {
+  color: #ffb300;
+  font-size: 1.1em;
+  margin-bottom: 0px;
+}
+/* line 229, ../sass/main.scss */
+.content .home-action-buttons {
+  width: 100%;
+  color: #ffffff;
+  text-shadow: 0 0;
+  margin-top: 0px;
+}
+/* line 236, ../sass/main.scss */
+.content .location-info {
+  color: #ffffff;
+}
+/* line 239, ../sass/main.scss */
+.content .location-info .location-image {
+  height: 100%;
+  margin-left: 0px;
+  margin-top: 0px;
+  float: left;
+  text-align: left;
+  width: 45%;
+}
+/* line 247, ../sass/main.scss */
+.content .location-info .location-image img {
+  height: auto;
+  max-width: 100%;
+  min-height: 150px;
+  vertical-align: bottom;
+  width: auto;
+}
+/* line 256, ../sass/main.scss */
+.content .location-info .display-wait-time-distance-block {
+  float: right;
+  text-align: right;
+  margin: 0em;
+}
+/* line 263, ../sass/main.scss */
+.content .location-info .display-wait-time-distance-block span.display-wait-time,
+.content .location-info .display-wait-time-distance-block span.display-distance {
+  font-size: 2.5em;
+  padding: 0;
+  margin: 0;
+  line-height: 0.9em;
+}
+/* line 270, ../sass/main.scss */
+.content .location-info .display-wait-time-distance-block #wait {
+  height: 50%;
+  padding: 4px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  letter-spacing: 1px;
+}
+/* line 279, ../sass/main.scss */
+.content .location-info .display-wait-time-distance-block #distance {
+  bottom: 0px;
+  height: 48%;
+  padding-right: 4px;
+  position: absolute;
+  right: 0px;
+  letter-spacing: 1px;
+}
+
+/* line 294, ../sass/main.scss */
+.footer {
+  position: fixed;
+  height: 50px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 100;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #363231), color-stop(100%, #282425));
+  background-image: -webkit-linear-gradient(#363231, #282425);
+  background-image: -moz-linear-gradient(#363231, #282425);
+  background-image: -o-linear-gradient(#363231, #282425);
+  background-image: linear-gradient(#363231, #282425);
+  border: 1px solid black;
+}
+/* line 304, ../sass/main.scss */
+.footer .ui-btn {
+  height: 45px;
+  background: #000000;
+  border: 0px;
+  text-shadow: 0 0;
+  padding: 0;
+  margin: 0;
+}
+/* line 313, ../sass/main.scss */
+.footer .footer-link-home {
+  background: url("../images/tabbar2/Home-static-btn.png") no-repeat center center;
+  background-size: 80px 45px;
+}
+/* line 318, ../sass/main.scss */
+.footer .footer-link-when {
+  background: url("../images/tabbar2/ER-static-btn.png") no-repeat center center;
+  background-size: 80px 45px;
+}
+/* line 323, ../sass/main.scss */
+.footer .footer-link-website {
+  background: url("../images/tabbar2/WebSite-static-Btn.png") no-repeat center center;
+  background-size: 80px 45px;
+}
+/* line 330, ../sass/main.scss */
+.footer a span {
+  position: relative;
+  left: -9999px;
+}
+
+/* line 342, ../sass/main.scss */
+#home .footer-link-home {
+  background: url("../images/tabbar2/Home-active-btn.png") no-repeat center center;
+  background-size: 80px 45px;
+}
+
+/* line 347, ../sass/main.scss */
+#when .footer-link-when {
+  background: url("../images/tabbar2/ER-active-btn.png") no-repeat center center;
+  background-size: 80px 45px;
+}
+
+/* line 354, ../sass/main.scss */
+.footer-link-website {
+  background: url("../images/tabbar2/WebSite-static-Btn.png") no-repeat center center;
+  background-size: 80px 45px;
+}
+
+/* line 363, ../sass/main.scss */
+.footer-link-home:hover {
+  background: url("../images/tabbar2/Home-hover-btn.png") no-repeat center center;
+  background-size: 80px 45px;
+}
+
+/* line 368, ../sass/main.scss */
+.footer-link-when:hover {
+  background: url("../images/tabbar2/ER-hover-btn.png") no-repeat center center;
+  background-size: 80px 45px;
+}
+
+/* line 373, ../sass/main.scss */
+.footer-link-website:hover {
+  background: url("../images/tabbar2/WebSite-hover-Btn.png") no-repeat center center;
+  background-size: 80px 45px;
+}
+
+/* line 380, ../sass/main.scss */
+.footer-link-home:active {
+  background: url("../images/tabbar2/Home-active-btn.png") no-repeat center center;
+  background-size: 80px 45px;
+}
+
+/* line 385, ../sass/main.scss */
+.footer-link-when:active {
+  background: url("../images/tabbar2/ER-active-btn.png") no-repeat center center;
+  background-size: 80px 45px;
+}
+
+/* line 390, ../sass/main.scss */
+.footer-link-website:active {
+  background: url("../images/tabbar2/WebSite-active-Btn.png") no-repeat center center;
+  background-size: 80px 45px;
+}
+
+/* END HOME PAGE STYLING */
+/* BEGIN DETAILS PAGE STYLING */
+/* line 405, ../sass/main.scss */
+.details-page .content {
+  font-family: Helvetica, Arial, 'sans-serif';
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  position: fixed;
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+  right: 0px;
+  bottom: 45px;
+  left: 0px;
+  z-index: 0;
+  padding-left: 0;
+  padding-right: 0;
+  background-color: #044872;
+  background: #044872;
+  /* Old browsers */
+}
+/* line 423, ../sass/main.scss */
+.details-page .content .ui-content {
+  padding-top: 0;
+}
+/* line 429, ../sass/main.scss */
+.details-page .content h1 {
+  text-align: left;
+  font-size: 1.5em;
+  margin-top: 0px;
+}
+/* line 434, ../sass/main.scss */
+.details-page .content .detail-location-box {
+  width: 100%;
+  color: #fff;
+  text-shadow: 0 0;
+  background: #006a9d;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #006a9d 0%, #033b67 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #006a9d), color-stop(100%, #033b67));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #006a9d 0%, #033b67 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #006a9d 0%, #033b67 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #006a9d 0%, #033b67 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #006a9d 0%, #033b67 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#006a9d', endColorstr='#033b67',GradientType=0 );
+  /* IE6-9 */
+  background: url("../images/triangle1.png") repeat-x;
+  background-size: 100% 75px;
+  height: 71px;
+}
+/* line 452, ../sass/main.scss */
+.details-page .content .detail-location-box .detail-location-text {
+  padding: 10px;
+  font-size: 1em;
+}
+/* line 456, ../sass/main.scss */
+.details-page .content .detail-location-box .detail-location-text .name {
+  color: #ffb300;
+  font-size: 1.1em;
+  margin-bottom: 0px;
+}
+/* line 466, ../sass/main.scss */
+.details-page .content .detail-action-buttons {
+  width: 100%;
+  color: #ffffff;
+  text-shadow: 0 0;
+}
+/* line 476, ../sass/main.scss */
+.details-page .content .list {
+  background-color: #072c41;
+}
+/* line 480, ../sass/main.scss */
+.details-page .content .location-info {
+  color: #ffffff;
+}
+/* line 483, ../sass/main.scss */
+.details-page .content .location-info .location-image {
+  float: none;
+  text-align: left;
+  width: 100%;
+  min-height: 100px;
+}
+/* line 488, ../sass/main.scss */
+.details-page .content .location-info .location-image img {
+  width: 100%;
+}
+/* line 494, ../sass/main.scss */
+.details-page .content .location-info .display-operating-hours {
+  font-size: 0.9em;
+  line-height: 1em;
+  padding: 0px;
+  text-align: left;
+}
+/* line 502, ../sass/main.scss */
+.details-page .content .location-info .display-operating-hours p {
+  margin-top: 0px;
+  padding-top: 0px;
+}
+/* line 508, ../sass/main.scss */
+.details-page .content .location-info .hours {
+  float: left;
+  width: 45%;
+  margin-top: 1em;
+  margin-left: 10px;
+}
+/* line 515, ../sass/main.scss */
+.details-page .content .location-info .info {
+  text-align: left;
+  float: right;
+  line-height: 1.1em;
+  margin-bottom: 5px;
+  width: 50%;
+}
+/* line 522, ../sass/main.scss */
+.details-page .content .location-info .info p {
+  margin-top: 0px;
+  padding-top: 0px;
+}
+/* line 528, ../sass/main.scss */
+.details-page .content .location-info .address-number-block {
+  clear: both;
+  width: 0 auto;
+}
+/* line 532, ../sass/main.scss */
+.details-page .content .location-info .address-number-block .display-address {
+  font-size: 0.8em;
+  text-align: left;
+}
+/* line 537, ../sass/main.scss */
+.details-page .content .location-info .address-number-block .display-phone {
+  font-size: 1.2em;
+  line-height: 1.3em;
+  text-align: left;
+}
+/* line 543, ../sass/main.scss */
+.details-page .content .location-info .address-number-block .display-phone a {
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: 0 0;
+}
+
+/* END DETAILS PAGE STYLING */
+/* BEGIN WHEN TO GO PAGE STYLING */
+/* line 567, ../sass/main.scss */
+.when-page .content {
+  font-family: Helvetica, Arial, 'sans-serif';
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  position: fixed;
+  top: 85px;
+  right: 0px;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  left: 0px;
+  z-index: 0;
+  padding-left: 0;
+  padding-right: 0;
+  background-color: #044872;
+  background: #044872;
+  /* Old browsers */
+}
+/* line 585, ../sass/main.scss */
+.when-page .content .ui-content {
+  padding-top: 0;
+  background-color: #044973;
+}
+/* line 592, ../sass/main.scss */
+.when-page .content h1 {
+  text-align: left;
+  font-size: 1.5em;
+  padding-top: 0px;
+}
+/* line 598, ../sass/main.scss */
+.when-page .content .when-box {
+  width: 100%;
+  color: #fff;
+  text-shadow: 0 0;
+  background: #006a9d;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #006a9d 0%, #033b67 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #006a9d), color-stop(100%, #033b67));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #006a9d 0%, #033b67 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #006a9d 0%, #033b67 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #006a9d 0%, #033b67 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #006a9d 0%, #033b67 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#006a9d', endColorstr='#033b67',GradientType=0 );
+  /* IE6-9 */
+  background: url("../images/triangle1.png") repeat-x;
+  background-size: 100% 75px;
+  height: 71px;
+}
+/* line 614, ../sass/main.scss */
+.when-page .content .when-box .when-text {
+  padding-left: 10px;
+  padding-top: 10px;
+  float: left;
+  font-size: 1em;
+}
+/* line 620, ../sass/main.scss */
+.when-page .content .when-box .when-text .name {
+  color: #FFB300;
+  font-size: 1.2em;
+  margin-bottom: 0px;
+}
+/* line 630, ../sass/main.scss */
+.when-page .content .when-action-buttons {
+  width: 100%;
+  color: #ffffff;
+  text-shadow: 0 0;
+  margin-top: 0px;
+}
+/* line 637, ../sass/main.scss */
+.when-page .content .when-action-buttons .left-button {
+  float: left;
+  width: 45%;
+}
+/* line 646, ../sass/main.scss */
+.when-page .content .when-list {
+  clear: both;
+}
+
+/* END WHEN TO GO PAGE STYLING */
+/* BEGIN LOCATION LIST PAGE STYLING */
+/* line 666, ../sass/main.scss */
+.locations-list-page .content {
+  font-family: Helvetica, Arial, 'sans-serif';
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  position: fixed;
+  top: 85px;
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+  right: 0px;
+  left: 0px;
+  z-index: 0;
+  padding-left: 0;
+  padding-right: 0;
+  background-color: #044872;
+  background: #044872;
+  /* Old browsers */
+}
+/* line 682, ../sass/main.scss */
+.locations-list-page .content .main-content {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+/* line 689, ../sass/main.scss */
+.locations-list-page .content .ui-content {
+  padding-top: 0;
+}
+/* line 694, ../sass/main.scss */
+.locations-list-page .content h1 {
+  text-align: left;
+  font-size: 1.5em;
+  margin-top: 0px;
+  padding-top: 5px;
+}
+/* line 700, ../sass/main.scss */
+.locations-list-page .content .locations-list-location-box {
+  width: 100%;
+  color: #fff;
+  text-shadow: 0 0;
+  background: #006a9d;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #006a9d 0%, #033b67 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #006a9d), color-stop(100%, #033b67));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #006a9d 0%, #033b67 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #006a9d 0%, #033b67 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #006a9d 0%, #033b67 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #006a9d 0%, #033b67 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#006a9d', endColorstr='#033b67',GradientType=0 );
+  /* IE6-9 */
+  background: url("../images/triangle1.png") repeat-x;
+  background-size: 100% 75px;
+  height: 71px;
+}
+/* line 716, ../sass/main.scss */
+.locations-list-page .content .locations-list-location-box .locations-list-location-text {
+  padding: 10px;
+  float: left;
+  font-size: 1em;
+}
+/* line 721, ../sass/main.scss */
+.locations-list-page .content .locations-list-location-box .locations-list-location-text .name {
+  color: #FFB300;
+  font-size: 1.2em;
+  margin-bottom: 0px;
+}
+/* line 732, ../sass/main.scss */
+.locations-list-page .content .locations-list-action-buttons {
+  width: 100%;
+  color: #ffffff;
+  text-shadow: 0 0;
+}
+/* line 739, ../sass/main.scss */
+.locations-list-page .content .locations-list-info {
+  color: #ffffff;
+  clear: both;
+  overflow: hidden;
+  *zoom: 1;
+}
+/* line 744, ../sass/main.scss */
+.locations-list-page .content .locations-list-info .hch-location-list {
+  width: 100%;
+  margin-left: 0px;
+}
+/* line 748, ../sass/main.scss */
+.locations-list-page .content .locations-list-info .hch-location-list .ui-controlgroup {
+  margin: 0px  0px .1em 0px;
+}
+/* line 752, ../sass/main.scss */
+.locations-list-page .content .locations-list-info .hch-location-list a {
+  text-align: left;
+  padding-left: -10px;
+  margin: 0;
+  line-height: 12px;
+}
+/* line 759, ../sass/main.scss */
+.locations-list-page .content .locations-list-info .hch-location-list .location-list-item-title {
+  font-size: 1em;
+  display: inline-block;
+  color: #0074aa;
+  font-weight: bold;
+  line-height: 1.2em;
+  padding-bottom: .1em;
+}
+/* line 769, ../sass/main.scss */
+.locations-list-page .content .locations-list-info .hch-location-list .location-list-item-wait {
+  display: inline-block;
+  font-size: .8em;
+  color: #333333;
+  width: 50%;
+}
+/* line 777, ../sass/main.scss */
+.locations-list-page .content .locations-list-info .hch-location-list .location-list-item-distance {
+  display: inline-block;
+  font-size: .8em;
+  color: #333333;
+  width: 50%;
+}
+/* line 784, ../sass/main.scss */
+.locations-list-page .content .locations-list-info .hch-location-list .ui-controlgroup li {
+  border-radius: 0px 0px;
+}
+/* line 788, ../sass/main.scss */
+.locations-list-page .content .locations-list-info .hch-location-list .ui-icon-arrow-r {
+  background-color: #0074aa;
+}
+
+/* END LOCATION LIST PAGE STYLING */
+/* assets */
+/* line 805, ../sass/main.scss */
+.directions-button {
+  display: block;
+  font-size: 1em;
+  padding: 0.5em;
+  text-decoration: none;
+  font-weight: normal;
+  margin: 0;
+  color: white;
+  clear: both;
+  text-align: center;
+  background: #006a9d;
+  /* Old browsers */
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  background-image: -moz-linear-gradient(90deg, #014676 0%, #0174a9 81%);
+  background-image: -webkit-linear-gradient(90deg, #014676 0%, #0174a9 81%);
+  background-image: -ms-linear-gradient(90deg, #014676 0%, #0174a9 81%);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
+}
+/* line 831, ../sass/main.scss */
+.directions-button a {
+  color: #ffffff !important;
+  text-shadow: 0 0;
+  padding: 0px;
+  text-decoration: none;
+  font-weight: normal;
+  font-family: "Helvetica Neue Light";
+  color: rgba(255, 255, 255, 0.902);
+  line-height: 1.1em;
+  -moz-transform: matrix(2.56658, 0, 0, 2.56658, 0, 0);
+  -webkit-transforms: matrix(2.56658, 0, 0, 2.56658, 0, 0);
+  -ms-transform: matrix(2.56658, 0, 0, 2.56658, 0, 0);
+}
+
+/* line 848, ../sass/main.scss */
+#home .directions-button {
+  margin: 0 auto;
+  margin-top: .2em;
+  font-size: 1em;
+  padding: 0.5em;
+  width: 40% !important;
+}
+
+/* line 856, ../sass/main.scss */
+.left-button {
+  float: left;
+  width: 45%;
+}
+/* line 862, ../sass/main.scss */
+.left-button .googleDir .backbtn, .left-button .listbtn, .left-button .nearestbtn {
+  display: block;
+  font-size: 1em;
+  padding: 0.5em;
+  margin: 0;
+  color: #ffffff !important;
+  text-shadow: 0 0;
+  text-decoration: none;
+  font-weight: normal;
+  text-align: center;
+  background: #006a9d;
+  /* Old browsers */
+  background-image: -moz-linear-gradient(90deg, #014676 0%, #0174a9 81%);
+  background-image: -webkit-linear-gradient(90deg, #014676 0%, #0174a9 81%);
+  background-image: -ms-linear-gradient(90deg, #014676 0%, #0174a9 81%);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+/* line 887, ../sass/main.scss */
+.right-button {
+  float: right;
+  width: 45%;
+}
+/* line 892, ../sass/main.scss */
+.right-button .backbtn, .right-button .detailsbtn, .right-button .nearestbtn {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  display: block;
+  font-size: 1em;
+  padding: 0.5em;
+  margin: 0;
+  color: #ffffff !important;
+  text-shadow: 0 0;
+  text-decoration: none;
+  font-weight: normal;
+  text-align: center;
+  background: #006a9d;
+  /* Old browsers */
+  background-image: -moz-linear-gradient(90deg, #ff4676 0%, #0174a9 81%);
+  background-image: -webkit-linear-gradient(90deg, #014676 0%, #0174a9 81%);
+  background-image: -ms-linear-gradient(90deg, #014676 0%, #0174a9 81%);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+/* line 917, ../sass/main.scss */
+.vertspace {
+  height: 150px;
+  width: 100%;
+}

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--
+        *******************************************************************
+        index.html - main HTML page - Holy Cross Urgentcare App
+        Gary Peach at BPD Advertising
+        http://www.bpdadvertising.com 
+        *******************************************************************
+        -->
+        <meta charset="UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, 
+              minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <title>IOS Holy Cross ER App</title>
+
+        <script src="jquery-1.10.1.min.js" type="text/javascript"></script>
+
+        <script src="jquery.mobile-1.3.1.min.js" type="text/javascript"></script>
+        <link href="jquery.mobile-1.3.1.min.css" rel="stylesheet" type="text/css"/>
+        <link href="jquery.mobile.structure-1.3.1.min.css" rel="stylesheet" type="text/css"/>
+
+        <link rel="stylesheet" href="themes/hch2.min.css" />
+        <link rel="stylesheet" href="stylesheets/main.css" />
+<!--                <script src="http://192.168.115.23:8080/target/target-script-min.js#anonymous"></script>-->
+<!--        <script src="http://192.168.10.101:8080/target/target-script-min.js#anonymous"></script>-->
+
+        <!-- TODO app requires external scripts - how to handle -->
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
+        <link href="css/gmap_api_default.css" rel="stylesheet" type="text/css" />
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="analytics.js"></script>
+        <script src="js/utility.js"></script>
+        <script src="js/main.js"></script>
+
+
+
+
+
+    </head>
+
+    <body onload="onLoad();">
+
+        <!-- page: Home -->
+        <div data-role="page" class="page" id="home"> 
+            <div class="header" 
+                 data-role="header" 
+                 data-id="hch_header" 
+                 data-position="fixed"
+                 data-fullscreen="false"
+                 data-tap-toggle="false">
+                <div class="app-header">
+                    <div class="app-logo"><p>Holy Cross Hospital</p></div>
+                </div>
+            </div>
+            <div class="content" data-role="content">
+
+                <!--                <div id="networkpop" data-rel="popup" data-positon-to="window" class="ui-content" style="max-width:280px">
+                                    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                                    no network</div>-->
+                <div class="nearest-location-box"> 
+                    <div>
+                        <div class="nearest-location-text">
+                            <span>Nearest location:<br></span>
+                            <h1 class="name"></h1>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="main-content">
+                    <div class="home-action-buttons">
+                        <div class="list-button left-button">
+                            <a href="#locations-list"   class="listbtn" data-transition="fade">List</a>
+                        </div>
+                        <div class="detail-button right-button">
+                            <a href="#detail" class="detailsbtn" data-transition="fade">Details</a>
+                        </div>
+                        <div class="clearfloat"></div>
+                    </div>
+
+                    <div class="location-info">
+                        <div class="list">
+                            <div class="location-image">
+                                <div class="photo"><a href="#home"  data-transition="fade"><img src="images/0.png" /></a></div>
+                            </div>
+                            <div class="display-wait-time-distance-block">
+                                <div id="wait">Wait Time<br><span class="display-wait-time wait"></span><br><span class="displayminutes">Minutes</span></div>
+
+                                <div id="distance">Distance<br><span class="display-distance distance"></span><br>miles</div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="clearfloat"></div>
+                        </div>
+                        <div class="directions-button">
+                            <a href="#" class="googleDir"  data-transition="fade">Directions</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- end div.list -->
+
+            </div>
+            <!-- end content -->
+            <div class="footer" data-role="footer" 
+                 data-id="hch_footer" 
+                 data-position="fixed"
+                 data-fullscreen="false"
+                 data-tap-toggle="false">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a class="tab footer-link-home" href="#home" data-transition="fade"><span>Home</span></a></li>
+                        <li><a class="tab footer-link-when" href="#when" data-transition="fade"><span>When to Go</span></a></li>
+                        <li><a href="#" class="hchLink tab footer-link-website"><span>Website</span></a></li>
+                    </ul>
+                </div>
+                <!-- end navbar --> 
+            </div>
+            <!-- end footer --> 
+        </div>
+        <!-- end home page --> 
+
+
+
+
+
+
+
+
+
+        <!-- page: detail -->
+        <div data-role="page" class="page details-page" id="detail">
+            <div class="header" 
+                 data-role="header" 
+                 data-id="hch_header" 
+                 data-position="fixed"
+                 data-fullscreen="false"
+                 data-tap-toggle="false">
+                <div class="app-header">
+                    <div class="app-logo"><p>Holy Cross Hospital</p></div>
+                </div>
+            </div>
+            <div class="content" data-role="content">
+
+
+                <div class="detail-location-box"> 
+                    <div>
+                        <div class="detail-location-text">
+                            <span>Location details:<br></span>
+                            <h1 class="name"></h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main-content">
+<!--                    <div class="detail-action-buttons">
+                        <div class="left-button">
+                            <a href="#" class="backbtn"  data-rel="back" data-transition="fade">Back</a>
+                        </div>
+                        <div class="right-button">
+                            <span>&nbsp;</span>
+                        </div>
+                        <div class="clearfloat"></div>
+                    </div>-->
+
+                    <div class="location-info">
+                        <div class="list" style="padding-top:0px;">
+                            <div class="location-image">
+                                <div class="photo"><img src="images/0-wide.png" /></div>
+                            </div>
+                            <div class="display-operating-hours">
+                                <div class="hours"></div>
+                                <div class="info"><div class="address-number-block">
+                                         <div class="display-phone">
+                                <span class="phone"><a href="#"></a></span>
+                            </div>
+                            <div class="display-address">
+                                <span class="address-1"></span><span class="address-2"></span><br>
+                                <span class="city"></span><span class="state"></span> <span class="zipcode"></span>
+                            </div>
+                            <div class="clearfloat"></div>
+                        </div></div>
+                            </div>
+                            <div class="clearfloat"></div>
+                        </div>
+                        
+                            <div class="detail-action-buttons">
+                       
+                            <div class="left-button directions-button">
+                            <a href="#" class="googleDir"  data-transition="fade">Directions</a>
+                        </div>
+                           
+                     
+                        <div class="right-button">
+                           <a href="#" class="backbtn"  data-rel="back" data-transition="fade">Back</a>
+                        </div>
+                        <div class="clearfloat"></div>
+                    </div>
+
+
+
+                        
+                    </div>
+                </div>
+
+                <!-- end div.list -->
+
+            </div>
+            <!-- end content -->
+            <div class="footer" data-role="footer" 
+                 data-id="hch_footer" 
+                 data-position="fixed"
+                 data-fullscreen="false"
+                 data-tap-toggle="false">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a class="tab footer-link-home" href="#home" data-transition="fade"><span>Home</span></a></li>
+                        <li><a class="tab footer-link-when" href="#when" data-transition="fade"><span>When to Go</span></a></li>
+                        <li><a href="#" class="hchLink tab footer-link-website"><span>Website</span></a></li>
+                    </ul>
+                </div>
+                <!-- end navbar --> 
+            </div>
+            <!-- end footer --> 
+
+        </div>
+        <!-- end detail page -->
+
+
+
+        <!-- page: When to Go -->
+        <div data-role="page" class="page when-page" id="when">
+            <div class="header" 
+                 data-role="header" 
+                 data-id="hch_header" 
+                 data-position="fixed"
+                 data-fullscreen="false"
+                 data-tap-toggle="false">
+                <div class="app-header">
+                    <div class="app-logo"><p>Holy Cross Hospital</p></div>
+                </div>
+            </div>
+            <div class="content" data-role="content">
+
+
+                <div class="when-box"> 
+                    <div class="when-text">
+
+                        <span>Holy Cross Hospital:<br></span>
+                        <h1 class="name">When to go</h1>
+                    </div>
+                </div><!--end when box -->
+
+                <div class="main-content">
+                    <div class="when-action-buttons">
+ <div class="left-button">
+                            <a href="#home" class="nearestbtn" data-transition="fade">Nearest</a>
+                        </div>
+                        <div class="right-button">
+                            <span>&nbsp;</span>
+                        </div>
+                         <div class="clearfloat"></div>
+                    </div><!--end when action buttons-->
+                    <div class="when-list">
+                        <ul id="when" data-role="listview" inset="true">
+                            <li class="center" data-role="list-divider">Emergency Room</li>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam risus massa, dignissim non varius ac, volutpat a risus. Ut non rhoncus mi, eu malesuada nisi. Nunc in porta augue. Phasellus eleifend diam eu ultrices porta. Donec malesuada venenatis ultricies. Sed vel commodo elit. Ut mauris neque, blandit non ante non, iaculis consectetur enim. Nam lacinia tempus commodo. Suspendisse at sagittis tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec sit amet leo eu mi commodo varius sit amet non ligula. Nam venenatis posuere massa suscipit euismod.</li>
+                           
+                            <!--                            <li>Choking</li>
+                                                        <li>Bleeding</li>
+                                                        <li>Loss of Consciousness</li>-->
+                        </ul>
+                        <ul id="urgentlist" data-role="listview" inset="true">
+                            <li class="center" data-role="list-divider">Urgent Care</li>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam risus massa, dignissim non varius ac, volutpat a risus. Ut non rhoncus mi, eu malesuada nisi. Nunc in porta augue. Phasellus eleifend diam eu ultrices porta. Donec malesuada venenatis ultricies. Sed vel commodo elit. Ut mauris neque, blandit non ante non, iaculis consectetur enim. Nam lacinia tempus commodo. Suspendisse at sagittis tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec sit amet leo eu mi commodo varius sit amet non ligula. Nam venenatis posuere massa suscipit euismod.</li>
+                         
+                            <!--                            <li>Broken Bones</li>
+                                                        <li>Sprains</li>
+                                                        <li>Chills</li>-->
+                        </ul> 
+                        <div class="vertspace">&nbsp;&nbsp;</div>
+                    </div><!--end when list-->
+                </div><!-- end main content -->
+            </div><!--end content-->
+            <div class="footer" data-role="footer" 
+                 data-id="hch_footer" 
+                 data-position="fixed"
+                 data-fullscreen="false"
+                 data-tap-toggle="false">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a class="tab footer-link-home" href="#home" data-transition="fade"><span>Home</span></a></li>
+                        <li><a class="tab footer-link-when" href="#when" data-transition="fade"><span>When to Go</span></a></li>
+                        <li><a href="#" class="hchLink tab footer-link-website"><span>Website</span></a></li>
+                    </ul>
+                </div><!-- end navbar --> 
+            </div><!-- end footer --> 
+        </div><!-- end when to go page --> 
+
+
+
+
+
+        <!-- page: locations -->
+        <div data-role="page" class="page locations-list-page" id="locations-list">
+            <div class="header" 
+                 data-role="header" 
+                 data-id="hch_header" 
+                 data-position="fixed"
+                 data-fullscreen="false"
+                 data-tap-toggle="false">
+                <div class="app-header">
+                    <div class="app-logo"><p>Holy Cross Hospital</p></div>
+                </div>
+            </div>
+            <div class="content" data-role="content">
+
+
+                <div class="locations-list-location-box"> 
+                    <div>
+                        <div class="locations-list-location-text">
+                            <h1 class="name">Holy Cross Locations</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main-content">
+                    <div class="locations-list-action-buttons">
+                        <div class="left-button">
+                            <a href="#home" class="nearestbtn" data-transition="fade">Nearest</a>
+                        </div>
+                        <div class="right-button">
+                            <span>&nbsp;</span>
+                        </div>
+                         <div class="clearfloat"></div>
+                    </div>
+
+
+                </div>
+                <div class="locations-list-info">
+                    <div class="hch-location-list">
+                        &nbsp;
+                    </div>    
+                </div>
+                <!-- end div.list -->
+
+            </div>
+            <!-- end content -->
+            <div class="footer" data-role="footer" 
+                 data-id="hch_footer" 
+                 data-position="fixed"
+                 data-fullscreen="false"
+                 data-tap-toggle="false">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a class="tab footer-link-home" href="#home" data-transition="fade"><span>Home</span></a></li>
+                        <li><a class="tab footer-link-when" href="#when" data-transition="fade"><span>When to Go</span></a></li>
+                        <li><a href="#" class="hchLink tab footer-link-website"><span>Website</span></a></li>
+                    </ul>
+                </div>
+                <!-- end navbar --> 
+            </div>
+            <!-- end footer --> 
+        </div>
+        <!-- end locations page -->    
+    </body>
+</html>

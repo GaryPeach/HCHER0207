@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.coolappz.HCHER0207" version="1.0.0">
+    <name>HCHER0207</name>
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Apache Cordova Team
+    </author>
+    <content src="index.html"/>
+    <access origin="*"/>
+    
+    
+        <!--ios prefs-->
+  <feature name="InAppBrowser">
+<param name="ios-package" value="CDVInAppBrowser" />
+<feature name="Console">
+<param name="ios-package" value="CDVLogger" />
+</feature>
+<feature name="Device">
+<param name="ios-package" value="CDVDevice" />
+</feature>
+<feature name="Notification">
+<param name="ios-package" value="CDVNotification" />
+</feature>
+<feature name="Globalization">
+<param name="ios-package" value="CDVGlobalization" />
+</feature>
+<feature name="NetworkStatus">
+<param name="ios-package" value="CDVConnection" />
+</feature>
+<feature name="SplashScreen">
+<param name="ios-package" value="CDVSplashScreen" />
+<param name="onload" value="true" />
+</feature>
+<feature name="IDBlue">
+<param name="ios-package" value="SageIDBlue" />
+<param name="onload" value="true" />
+</feature>
+<feature name="BarcodeScanner">
+<param name="ios-package" value="CDVBarcodeScanner" />
+</feature>
+  
+  
+  </feature>
+  
+  
+</widget>

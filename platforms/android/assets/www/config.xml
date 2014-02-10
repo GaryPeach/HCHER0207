@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.bpdadvertising.hcherapp" version="2.0.0">
+    <name>Holy Cross ER App 122013</name>
+    <description>Cordova Application</description>
+    <author email="gary@bpdadvertising.com" href="http://www.bpdadvertising.com">Gary Peach</author>
+    <access origin="http://192.168.115.23/"/>
+    <access origin="*"/>
+    <preference name="fullscreen" value="true"/>
+    <preference name="orientation" value="default"/>
+    <preference name="phonegap-version" value="3.4.0-rc.1" />
+    
+    <!--ios prefs-->
+  <feature name="InAppBrowser">
+<param name="ios-package" value="CDVInAppBrowser" />
+</feature>
+<feature name="Console">
+<param name="ios-package" value="CDVLogger" />
+</feature>
+<feature name="Device">
+<param name="ios-package" value="CDVDevice" />
+</feature>
+<feature name="Notification">
+<param name="ios-package" value="CDVNotification" />
+</feature>
+<feature name="Globalization">
+<param name="ios-package" value="CDVGlobalization" />
+</feature>
+<feature name="NetworkStatus">
+<param name="ios-package" value="CDVConnection" />
+</feature>
+<feature name="SplashScreen">
+<param name="ios-package" value="CDVSplashScreen" />
+<param name="onload" value="true" />
+</feature>
+<feature name="IDBlue">
+<param name="ios-package" value="SageIDBlue" />
+<param name="onload" value="true" />
+</feature>
+<feature name="BarcodeScanner">
+<param name="ios-package" value="CDVBarcodeScanner" />
+</feature>
+
+<icon gap:platform="ios" height="57" src="res/icon/ios/icon-57.png" width="57" />
+<icon gap:platform="ios" height="72" src="res/icon/ios/icon-72.png" width="72" />
+<icon gap:platform="ios" height="114" src="res/icon/ios/icon-57-2x.png" width="114" />
+<icon gap:platform="ios" height="144" src="res/icon/ios/icon-72-2x.png" width="144" />
+
+<!--<content src="js/SpecRunner.html"/>-->
+    <content src="index.html"/>
+</widget>
